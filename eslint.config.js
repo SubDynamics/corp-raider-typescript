@@ -16,6 +16,10 @@ export default [
       globals: {
         Atomics: 'readonly',
         SharedArrayBuffer: 'readonly',
+        window: 'readonly',
+        document: 'readonly',
+        setInterval: 'readonly',
+        clearInterval: 'readonly',
       },
     },
     plugins: {
