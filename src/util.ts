@@ -19,18 +19,14 @@ const numberWithCommas = (amount: number): string => {
 export const moneyFormatter = (amount: number, withNewLine?: boolean): string => {
   const space = withNewLine ? '\n' : ' ';
   if (amount >= TRILLION) {
-    const trillionDecimal = getTwoDigitDecimal(amount / TRILLION);
-    return SIGN + trillionDecimal + space + 'TRILLION';
+    return SIGN + getTwoDigitDecimal(amount / TRILLION) + space + 'TRILLION';
   } else if (amount >= BILLION) {
-    const billionDecimal = getTwoDigitDecimal(amount / BILLION);
-    return SIGN + billionDecimal + space + 'BILLION';
+    return SIGN + getTwoDigitDecimal(amount / BILLION) + space + 'BILLION';
   } else if (amount >= MILLION) {
-    const millionDecimal = getTwoDigitDecimal(amount / MILLION);
-    return SIGN + millionDecimal + space + 'MILLION';
+    return SIGN + getTwoDigitDecimal(amount / MILLION) + space + 'MILLION';
   } else if (amount >= THOUSAND) {
     return SIGN + numberWithCommas(amount);
   }
-
   return SIGN + amount;
 };
 
@@ -41,19 +37,10 @@ const countdownLeadingZero = (secondCount: number): string => {
 
 export const countdownFormatter = (deltaSecs: number): string => {
   if (deltaSecs < 0) return '00:00:00';
-  const hours = Math.floor(
-    (deltaSecs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-  );
+  const hours = Math.floor((deltaSecs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
   const minutes = Math.floor((deltaSecs % (1000 * 60 * 60)) / (1000 * 60));
   const seconds = Math.floor((deltaSecs % (1000 * 60)) / 1000);
-
-  return (
-    countdownLeadingZero(hours) +
-    ':' +
-    countdownLeadingZero(minutes) +
-    ':' +
-    countdownLeadingZero(seconds)
-  );
+  return countdownLeadingZero(hours) + ':' + countdownLeadingZero(minutes) + ':' + countdownLeadingZero(seconds);
 };
 
 export const calculatePayout = (portfolioObject: PortfolioItem): number => {
