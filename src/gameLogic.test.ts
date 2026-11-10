@@ -11,7 +11,7 @@ import {
   hireManager,
   calculateManagerIncome,
 } from '../src/gameLogic';
-import { businessesForSale } from '../src/const';
+// import { businessesForSale } from '../src/const';
 
 beforeEach(() => {
   newGame();
