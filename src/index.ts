@@ -9,7 +9,7 @@ import {
 import createMenuButton from './menuButton';
 import createBusinessWidget from './businessWidget';
 import type { BusinessWidgetContainer } from './businessWidget';
-import { moneyFormatter } from './util';
+import { getFitScale, moneyFormatter } from './util';
 import {
   addIncome,
   buyBusiness,
@@ -60,6 +60,7 @@ const init = async (): Promise<void> => {
     width: window.innerWidth,
     height: window.innerHeight,
     resolution: window.devicePixelRatio,
+    resizeTo: window,
   });
 
   document.body.appendChild(app.canvas);
@@ -77,6 +78,18 @@ const init = async (): Promise<void> => {
   const backgroundSprite = Sprite.from('gameBackground');
   backgroundSprite.anchor.set(MIDDLE_VAL);
   gameContainer.addChild(backgroundSprite);
+
+  const designWidth = backgroundSprite.width;
+  const designHeight = backgroundSprite.height;
+  const fitGameContainer = (): void => {
+    gameContainer.scale.set(
+      getFitScale(app.screen.width, app.screen.height, designWidth, designHeight),
+    );
+    gameContainer.x = app.screen.width * MIDDLE_VAL;
+    gameContainer.y = app.screen.height * MIDDLE_VAL;
+  };
+  fitGameContainer();
+  app.renderer.on('resize', fitGameContainer);
 
   const walletText = new Text({
     text: moneyFormatter(playerWallet),

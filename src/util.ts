@@ -48,3 +48,13 @@ export const calculatePayout = (portfolioObject: PortfolioItem): number => {
   const payoutPerBranch = isUpgraded ? payout * UPGRADE_MULTIPLIER : payout;
   return payoutPerBranch * branchCount;
 };
+
+export const getFitScale = (
+  viewportWidth: number,
+  viewportHeight: number,
+  contentWidth: number,
+  contentHeight: number,
+): number => {
+  const widthScale = viewportWidth / contentWidth;
+  return contentHeight * widthScale > viewportHeight ? viewportHeight / contentHeight : widthScale;
+};
